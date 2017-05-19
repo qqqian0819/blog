@@ -38,7 +38,7 @@ class Blog extends Model
 	*/
 	public static function getAll()
 	{
-		$lists=Blog::where([])->order('addtime desc')->select();
+		$lists=Blog::where('isdelete',0)->field('')->order('addtime desc')->paginate(10);
 		return $lists;
 	}
 
@@ -54,7 +54,7 @@ class Blog extends Model
 		$blogs=Blog::where('content like :word or title like :words or sort like :wordss ')
 					->bind(['word'=>"%$key%",'words'=>"%$key%",'wordss'=>"%$key%"])
 					->order('addtime desc')
-					->select();
+					->paginate(10);
 		return $blogs;
 	}
 
@@ -81,3 +81,4 @@ class Blog extends Model
 		return $flag;
 	}*/
 }
+
