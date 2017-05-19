@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>修改博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/blog/public/favicon.png">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
+<style>
+   *{margin:0;padding:0;}
+	header{
+		text-align: center;		
+	}
+	ul li{
+		list-style-type: none;
+	}
+	.navbar-nav .nav-item+.nav-item {
+    	margin-left: 1.4rem;
+	}
+	.navbar-nav {margin-left: 4em;}	
+	#blog{width: 70%;float: left}
+</style>
+</head>
+
+<body class="container-fluid">
+<header>
+	<p><h2>媛界码萌倩汉子</h2></p>
+	<p><em>——成长之路</em></p>
+</header>
+<nav class="navbar navbar-light bg-faded">
+	<div>
+	    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">技术</a>
+	      	</li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">生活</a>
+	      	</li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">留言</a>
+	      	</li>
+	      	<li class="nav-item active">
+	        	<a class="nav-link" href="#">添加</a>
+	      	</li>
+	    </ul>
+	    <div style="float:right;">
+		    <form class="form-inline my-2 my-lg-0">
+			      <input class="form-control mr-sm-2" type="text" id="keyword" placeholder="Search" aria-label="Search" />
+			      <button class="btn btn-outline-success my-2 my-sm-0" id="search" type="submit">Search</button>
+		    </form>
+	    </div>
+	</div>
+</nav>
+<br>
+<main class="container">
+	<form>
+		<div class="form-group">
+			<label for="title">标题：</label>
+			<input type="text" name="title" id="title" class="form-control" placeholder="输入标题" value="{$title}">
+
+		</div>
+		<div>
+			<label>标签：</label><br>
+			<label class="checkbox-inline">
+  				<input type="checkbox" name="sort" value="option1"> php
+			</label>
+			<label class="checkbox-inline">
+  				<input type="checkbox" name="sort" value="option2"> javascript
+			</label>
+			<label class="checkbox-inline">
+	  			<input type="checkbox" name="sort" value="option3"> html
+			</label>
+		</div>
+		<div style="width:100%">
+			<label for="article">文章：</label>
+			<textarea name="article" id="article">{$content}</textarea>			
+		</div>
+		<br>
+		<button type="submit" id="publish" class="btn btn-outline-success btn-block">发表</button>
+	</form>
+</main>
+<div style="height:100em"></div>
+<script src='/blog/public/static/editor/ueditor.config.js'></script>
+<script src='/blog/public/static/editor/ueditor.all.min.js'></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	// 编辑器
+	var editor= UE.getEditor(article);
+	var editor=new UE.ui.Editor({initialFrameHeight:400});
+	editor.render(article);
+	// console.log(editor);
+
+	// 判断是否为空
+	$('#search').on('click',function(){
+		if($('#keyword').val()==''){
+			alert('关键字不能为空');
+			$('#keyword').focus();
+			return false;
+		}
+	});
+
+	$('#publish').on('click',function(){
+		var article=editor.body.innerText;
+		// console.log(article.length);
+
+		if($('#title').val()==''||article.length=='1'){
+			alert('请填写完整信息');
+			return false;
+		};
+		// get将map返回的jq包裹的数组转化为普通数组，array.join(separator) 返回sting
+		var sort = $("input:checkbox:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join(',');
+        
+        $.ajax({
+			method: "POST",
+			url: "editBlog",
+			data: {'id':{$id},'sort':sort,'title':$('#title').val(),'content':article}
+		})
+		.done(function(msg){
+			console.log(msg);
+			if(msg==0){
+				alert('修改失败');
+			}
+		})
+		.fail(function(msg){
+			alert('修改失败');
+		});
+		return false;
+
+
+	})
+
+
+</script>
+</body>
+</html>
