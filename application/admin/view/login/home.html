@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>首頁</title>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link rel="shortcut icon" href="/blog/public/favicon.png">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
+<style>
+   *{margin:0;padding:0;}
+	header{
+		text-align: center;		
+	}
+	ul li{
+		list-style-type: none;
+	}
+	main{
+		min-height: 1000em;
+		margin-top: 2em;
+	}
+	.navbar-nav .nav-item+.nav-item {
+    	margin-left: 1.4rem;
+	}
+	.navbar-nav {margin-left: 4em;}	
+	#blog{width: 70%;float: left}
+	.item{
+		background: #eee;
+		padding:0.5em;
+		margin-bottom: 1em;
+	}
+	.text{
+		text-indent: 2em;
+		height: 4.5em;
+		overflow: hidden;
+	}
+	a:hover{
+		text-decoration: none;
+		color: #f00;
+	}
+	.sort{
+		width: 20%;
+		padding-left:3em;
+		float: left;
+	}
+</style>
+</head>
+
+<body class="container-fluid">
+<header>
+	<p><h2>媛界码萌倩汉子</h2></p>
+	<p><em>——成长之路</em></p>
+</header>
+<nav class="navbar navbar-light bg-faded">
+	<div>
+	    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+	      	<li class="nav-item active">
+	        	<a class="nav-link" href="#">技术</a>
+	      	</li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">生活</a>
+	      	</li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">留言</a>
+	      	</li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">添加</a>
+	      	</li>
+	    </ul>
+	    <div style="float:right;">
+		    <form class="form-inline my-2 my-lg-0">
+			      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    </form>
+	    </div>
+	</div>
+</nav>
+<main>
+	<div id="blog">
+		<div class="item">
+			<strong><a href="">这是一篇巴拉巴拉巴拉的博客</a></strong>
+			<p>2017-06-12 13:37:23<small><strong> 标签：</strong><mark>php</mark>  <mark>js</mark>  <mark>数据库</mark></small></p>
+			<div class="text">
+				在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人，他们在这里一起或板凳瓜观，或茶余饭谈，或拍手称赞，吐槽药丸。还有一群名大千世界还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人......
+			</div>
+			<p style="text-align:center"><a href="">-阅读全文-</a></p>
+
+		</div>
+		<div class="item">
+			<strong><a href="">这是一篇巴拉巴拉巴拉的博客</a></strong>
+			<p>2017-06-12 13:37:23 <small><strong>标签：</strong>php javascript 数据库</small></p>
+			<div class="text">
+				在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人，他们在这里一起或板还有一群名为前端开发的人，他们在这里一起或板大千世界大千世界还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人......
+			</div>
+			<p style="text-align:center"><a href="">-阅读全文-</a></p>
+		</div>
+	</div>
+	<div class="sort">
+		<div>
+			<strong>标签列表</strong>
+			<ul>
+				<li><a href="">javascript(3)</a></li>
+				<li><a href="">php(3)</a></li>
+				<li><a href="">mysql(3)</a></li>
+				<li><a href="">redis(3)</a></li>
+				<li><a href="">websocket(3)</a></li>
+			</ul>
+		</div>
+		<hr>
+		<div>
+			<strong>文章存档</strong>
+			<ul>
+				<li><a href="">2017-01(3)</a></li>
+				<li><a href="">2017-02(3)</a></li>
+				<li><a href="">2017-03(3)</a></li>
+			</ul>
+		</div>
+	</div>
+</main>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"/>
+</body>
+</html>

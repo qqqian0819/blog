@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>留言板</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/blog/public/favicon.png">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
+<style>
+   *{margin:0;padding:0;}
+	header{
+		text-align: center;		
+	}
+	ul li{
+		list-style-type: none;
+	}
+	main{
+		min-height: 1000em;
+		margin-top: 2em;
+	}
+	.navbar-nav .nav-item+.nav-item {
+    	margin-left: 1.4rem;
+	}
+	.navbar-nav {margin-left: 4em;}
+	a:hover{
+		text-decoration: none;
+		color: #f00;
+	}
+	.list div{
+		padding:0.2em;
+		margin-bottom: 0.4em;
+	}
+	.text{text-indent: 2em;}
+	.time{color:#900;}
+
+	.comment ,.delete{
+		color:#00f;
+		text-align: right;
+	}
+	.comment:hover ,.delete:hover{
+		color: #f00;
+		cursor: pointer;
+	}
+</style>
+</head>
+
+<body class="container-fluid">
+<header>
+	<p><h2>媛界码萌倩汉子</h2></p>
+	<p><em>——成长之路</em></p>
+</header>
+<nav class="navbar navbar-light bg-faded">
+	<div>
+	    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="#">技术</a>
+	      	</li>
+	      	<li class="nav-item ">
+	        	<a class="nav-link" href="#">生活</a>
+	      	</li>
+	      	<li class="nav-item active">
+	        	<a class="nav-link" href="#">留言</a>
+	      	</li>
+	    </ul>
+	    <div style="float:right;">
+		    <form class="form-inline my-2 my-lg-0">
+			    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+			    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    </form>
+	    </div>
+	</div>
+</nav>
+<main class="container">
+	<form>
+		<div class="form-group">
+			<label for="name">称呼(必填)：</label>
+			<input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="email">邮箱(不会被公开)：</label>
+			<input type="email" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/>
+		</div>
+		<div>
+			<label for="message">内容(必填)：</label>
+			<textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea>
+		</div>
+		<br>
+		<button id="mess" class="btn btn-outline-info btn-block" >留言</button>
+		
+	</form>
+	<hr>
+	<h3>留言列表(<span style="color:#f00">{:count($list)}</span>)</h3>
+	<div class="list">
+	{volist name="list" id="vo"}	
+		{$vo.border}
+		<div style="background:{$vo.bg};margin-left:{$vo.lefts}em">
+			<strong>{$vo.name}</strong>
+			<p class="time">{$vo['addtime']|date="Y-m-d H:i:s",###}</p>
+			<div class="text">
+				{$vo.message}
+			</div>					
+			<p class="delete" id="{$vo.id}">删除</p>
+			<p class="comment">回复</p>
+			<form name="form{$vo.id}">
+				<input type="hidden" value="{$vo.id}" />
+			</form>
+		</div>
+	{/volist}
+	</div>
+</main>
+
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	// 评论回复框弹出与取消
+	$('.comment').on('click',function(){
+
+		if($(this).next().find('label').text()==''){
+			var form='<div class="form-group"><label for="name">称呼(必填)：</label><input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/></div><div class="form-group"><label for="email">邮箱(不会被公开)：</label><input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/></div><div><label for="message">内容(必填)：</label><textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea></div><br><button class="btn btn-outline-info btn-block" type="submit">回复</button>';
+		
+			$(this).next().append(form); // 添加form到子节点尾部
+			$(this).text('取消回复');
+		}else{
+			// .first() 无效???
+			$(this).next().find('input[type=hidden]').nextAll().remove();
+			$(this).text('回复');
+
+			
+		}
+
+	});
+
+	// 提交留言
+	$('#mess').on('click',function(){
+
+		let data=$('form').serialize();
+
+		getAjax(data,'add');
+
+		return false;
+	});
+
+	// 评论回复留言
+	$('form').submit(function(e){
+
+		let num=$(this).find('input[type=hidden]').val();
+		
+		// 拼装数据
+		let data=$('form[name=form'+num+']').serialize()+'&parent='+num;
+		
+		getAjax(data,'add');
+		return false;
+	});
+
+	// 删除留言
+	$('.delete').on('click',function(e){
+		let flag=confirm('确定要删除该留言及其子孙留言');
+		if(flag==true){
+			// alert( $(e.target).attr("id"));
+			$id=$(e.target).attr("id");
+			getAjax('id='+$id,'del');
+		}
+
+	});
+
+	// 调用jax
+	function getAjax($data,$url){
+		$.ajax({
+			url:$url,
+			method:'POST',
+			data:$data
+		})
+		.done(function(msg){
+			alert(msg);
+			document.location.reload();//刷新当前页面
+		})
+		.fail(function(msg){
+			console.log('sorry 再试一次吧');
+		});
+	}
+</script>
+
+</body>
+</html>
