@@ -1,0 +1,21 @@
+<style>
+	a:hover{
+		text-decoration: none;
+		color: #f00;
+	}
+	.list div{
+		padding:0.2em;
+		margin-bottom: 0.4em;
+	}
+	.text{text-indent: 2em;}
+	.time{color:#900;}
+
+	.comment ,.delete{
+		color:#00f;
+		text-align: right;
+	}
+	.comment:hover ,.delete:hover{
+		color: #f00;
+		cursor: pointer;
+	}
+</style>

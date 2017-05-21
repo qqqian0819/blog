@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\model;
+namespace app\common\model;
 use think\input;
 use think\Model;
 class Blog extends Model
@@ -80,5 +80,51 @@ class Blog extends Model
 		$flag=Blog::where('id',$id)->update(['isdelete'=>1]);
 		return $flag;
 	}*/
-}
 
+	/**
+	 * 所有文章归档
+	 * @return array{
+	 			[0]=>array([years]=>,[months]=>,[num]=>)
+	 			}
+	*/
+	public static function timeFile()
+	{
+		$sql="SELECT FROM_UNIXTIME(addtime,'%Y') years,FROM_UNIXTIME(addtime,'%m') months,COUNT(id) num FROM tp_blog WHERE isdelete=0 GROUP BY years,months";
+		$files=Blog::query($sql);
+		return $files; 
+	}
+
+	/**
+	 * 具体一段时间的文章
+	 * @param string $date [时间 年/月]
+	 * @return array
+	*/
+	public static function findDate($date)
+	{
+		$sql="SELECT * FROM tp_blog WHERE FROM_UNIXTIME(addtime,'%Y%m')='$date'  AND `isdelete` = 0 ORDER BY addtime desc LIMIT 0,10";
+		// $files=Blog::query($sql);
+		$files=Blog::where('FROM_UNIXTIME(addtime,"%Y%m")='.$date)
+					->where('isdelete=0')
+					->order('addtime desc')->paginate(10);
+		return $files; 
+	}
+
+	/**
+     * 生活或者技术分类
+     * @param string $name[skill/life]
+     * @return array [0]=>('sort'=>javascript 'count'=>3)
+	*/
+	public static function sort($name)
+	{
+		$list=Blog::field('tp_sort.sort,COUNT(*),s.name')
+					->alias('b')
+					->join('tp_sort s','b.sort=s.id')
+					->where('isdelete',0)
+					// ->having('s.name='.$name)
+					->group('s.sort')
+					->select();
+
+		return $list;
+	}
+
+}

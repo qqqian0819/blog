@@ -16,7 +16,7 @@ class Publish extends Controller
 		$data=input('post.');
 
 		// 如果不引入该model 则需要此处\app\
-		$res=\app\admin\model\Blog::addBlog($data);
+		$res=\app\common\model\Blog::addBlog($data);
 		return $res?'发表成功':'发表失败';
 	}
 }

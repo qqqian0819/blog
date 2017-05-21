@@ -1,67 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>生活</title>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<link rel="shortcut icon" href="/blog/public/favicon.png">
-<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
-<style>
-   *{margin:0;padding:0;}
-	header{
-		text-align: center;		
-	}
-	.item{
-		background: #fbfbfb;
-		padding:0.5em;
-		margin-bottom: 1em;
-	}
-	.item>strong{
-		color:#008;
-		font-size:1.3em;
-	}
-	.other small{
-		font-weight: lighter;
-	}
-	.other em{color:#009;}
-
-	.list{
-		border:1px solid #eee;
-		padding:0.5em;
-		margin-bottom: 1em;
-	}
-	.list p{
-		margin:0.4em;
-	}
-	.text{text-indent: 2em;margin-top: 0em;}
-	.replay{
-		padding:0.5em;
-		margin-left:3em;
-		background: #eee;
-	}
-	.comment ,.quxiao{
-		color:#00f;
-		text-align: right;
-	}
-	.comment:hover ,.quxiao:hover{
-		color: #f00;
-		cursor: pointer;
-	}
-	#recom{display: none;}
-</style>
-</head>
-
-<body class="container-fluid">
-<header>
-	<p><h2>媛界码萌倩汉子</h2></p>
-	<p><em>——成长之路</em></p>
-</header>
+{include file="index/header" title="xianga"  active="home" /}
 <main class="container">
 	<div class="item">
-		<strong>这是一篇巴拉巴拉巴拉的博客</strong>
-		<p>2017-06-12 13:37:23<small><strong> 标签：</strong><mark>php</mark>  <mark>js</mark>  <mark>数据库</mark></small></p>
+		<strong>{$title}</strong>
+		<p>{$addtime}<small><strong> 标签：</strong><mark>{$sort}</mark>  <mark>js</mark>  <mark>数据库</mark></small></p>
 		<div class="text">
-			在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人，他们在这里一起或板还有一群名为前端开发的人，他们在这里一起或板大千世界大千世界......在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人，他们在这里一起或板还有一群名为前端开发的人，他们在这里一起或板大千世界大千世界......在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人，他们在这里一起或板还有一群名为前端开发的人，他们在这里一起或板大千世界大千世界......在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人，他们在这里一起或板还有一群名为前端开发的人，他们在这里一起或板大千世界大千世界......
+			{$content}ddadsfdasfadsfd阿萨打发斯蒂芬大三发顺丰父大大发法法发到付
 		</div>
 	</div>
 	<hr>
@@ -70,85 +13,12 @@
 		<small>下一篇：</small><em>萨达所大龟甲师</em><br>
 		<hr>
 		<h3>添加评论</h3>
-		<div>
-			<form>
-		<div class="form-group">
-			<label for="name">称呼(必填)：</label>
-			<input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/>
-		</div>
-		<div class="form-group">
-			<label for="email">邮箱(不会被公开)：</label>
-			<input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/>
-		</div>
-		<div>
-			<label for="content">内容(必填)：</label>
-			<textarea name="content" id="content" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea>
-		</div>
-		<br>
-		<button type="submit" class="btn btn-outline-info btn-block">留言</button>
-		
-	</form>
-	<hr>
-	<h3>评论列表</h3>
-	<div class="list">
-		<strong>这是一篇巴拉巴拉巴拉的博客</strong>
-		<p>2017-06-12 13:37:23</p>
-		<div class="text">
-			在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人
-		</div>
-		<p class="comment">回复</p>
-		<div class="replay">
-			<strong>这是一篇巴拉巴拉巴拉的博客</strong>
-			<p>2017-06-12 13:37:23</p>
-			<div class="text">
-				在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人
-			</div>
-			<p class="comment">回复</p>
-		</div>
-	</div>
-	<div class="list">
-		<strong>这是一篇巴拉巴拉巴拉的博客</strong>
-		<p>2017-06-12 13:37:23</p>
-		<div class="text">
-			在这个世界中，有一群名叫前端开发的人，他们在这里一起或把酒言欢，或指点江山，或塑造光环，受人膜拜。还有一群名为前端开发的人或分门别派，或吵架不断，或推波助澜，好生精彩。还有一群名为前端开发的人
-		</div>
-		<p class="comment">回复</p>
-		<div id="recom">
-			<hr>
-			<form>
-				<div class="form-group">
-					<label for="name">称呼(必填)：</label>
-					<input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/>
-				</div>
-				<div class="form-group">
-					<label for="email">邮箱(不会被公开)：</label>
-					<input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/>
-				</div>
-				<div>
-					<label for="content">内容(必填)：</label>
-					<textarea name="content" id="content" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea>
-				</div>
-				<br>
-				<button type="submit" class="btn btn-outline-info btn-block">回复</button>
-				<p class="quxiao">取消回复</p>
-			</form>
-		</div>
-	</div>
-		</div>
+		{include file="index/messlayout" listName="评论列表"/}
 	</div>
 </main>
-
-
-
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-	$('.comment').on('click',function(){
-		$('#recom').show();
-	});
-	$('.quxiao').on('click',function(){
-		$('#recom').hide();
-	});
-</script>
+{include file="index/footer"}
+<script type="text/javascript" src="/blog/public/static/editor/third-party/SyntaxHighlighter/shCore.js"></script>
+<script>SyntaxHighlighter.highlight();</script>
+<script src="{$Think.config.web_root}js/message.js"></script>
 </body>
 </html>

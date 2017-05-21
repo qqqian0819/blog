@@ -94,7 +94,7 @@
 	{volist name="list" id="vo"}	
 		{$vo.border}
 		<div style="background:{$vo.bg};margin-left:{$vo.lefts}em">
-			<strong>{$vo.name}</strong>
+			<strong>{$vo.name??'匿名'}</strong>
 			<p class="time">{$vo['addtime']|date="Y-m-d H:i:s",###}</p>
 			<div class="text">
 				{$vo.message}
