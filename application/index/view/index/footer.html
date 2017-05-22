@@ -1,0 +1,21 @@
+<!-- 公共页脚 -->
+<div style="clear:both"></div>
+<footer>
+	<hr>
+	<p class="text-center">Powered & designed by qqqian</p>
+	<p class="text-center">Copyright @ 2017 qqqian</p>
+</footer>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+		let contentHeight = document.body.scrollHeight,//网页正文全文高度
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            $("footer").css({'position':' fixed','bottom': 0,'width':'100%'});
+            // $("footer").css({'position':' fixed','bottom': 0});
+            // $("footer").css({'bottom': 0,'width':'100%'});
+        }
+	});
+
+</script>

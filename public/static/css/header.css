@@ -1,0 +1,25 @@
+
+<style>
+   *{margin:0;padding:0;}
+	header{
+		text-align: center;	
+
+	}
+	header a{color:#000;}
+	
+	a:hover{
+		text-decoration: none;
+		color: #f00;
+	}
+	
+	footer{
+		font-family:monospace;
+		font-size: 2em;
+
+	}
+	
+	@media (max-width:768px) {
+		footer{font-size: 1.2em;}
+	}
+
+</style>

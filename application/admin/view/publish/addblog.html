@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="/blog/public/favicon.png">
 <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/blog/public/static/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
 <style>
    *{margin:0;padding:0;}
 	header{
@@ -82,12 +83,15 @@
 <script src='/blog/public/static/editor/ueditor.config.js'></script>
 <script src='/blog/public/static/editor/ueditor.all.min.js'></script>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/blog/public/static/editor/third-party/SyntaxHighlighter/shCore.js"></script>
 <script>
+	// SyntaxHighlighter.highlight();
+	SyntaxHighlighter.all() 
 	// 编辑器
-	var editor= UE.getEditor(article);
-	var editor=new UE.ui.Editor({initialFrameHeight:400});
-	editor.render(article);
-	// console.log(editor);
+	var ueditor= UE.getEditor(article);
+	var ueditor=new UE.ui.Editor({initialFrameHeight:400});
+	ueditor.render(article);
+	// console.log(ueditor);
 
 	// 判断是否为空
 	$('#search').on('click',function(){
@@ -99,7 +103,7 @@
 	});
 
 	$('#publish').on('click',function(){
-		var article=editor.body.innerText;
+		var article=ueditor.body.innerText;
 		// console.log(article.length);
 
 		if($('#title').val()==''||article.length=='1'){
@@ -114,7 +118,7 @@
         $.ajax({
 			method: "POST",
 			url: "add",
-			data: {'sort':sort,'title':$('#title').val(),'content':article}
+			data: {'sort':sort,'title':$('#title').val(),'content':ueditor.body.innerHTML}
 		})
 		.done(function(msg){
 			console.log('成功'+msg);
@@ -126,8 +130,6 @@
 
 
 	})
-
-
 </script>
 </body>
 </html>

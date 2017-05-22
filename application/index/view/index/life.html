@@ -1,77 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>生活</title>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-<link rel="shortcut icon" href="/blog/public/favicon.png">
-<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
-<style>
-   *{margin:0;padding:0;}
-	header{
-		text-align: center;		
-	}
-	ul li{
-		list-style-type: none;
-	}
-	main{
-		min-height: 1000em;
-		margin-top: 2em;
-	}
-	.navbar-nav .nav-item+.nav-item {
-    	margin-left: 1.4rem;
-	}
-	.navbar-nav {margin-left: 4em;}	
-	#blog{width: 70%;float: left}
-	.item{
-		background: #eee;
-		padding:0.5em;
-		margin-bottom: 1em;
-	}
-	.text{
-		text-indent: 2em;
-		height: 4.5em;
-		overflow: hidden;
-	}
-	a:hover{
-		text-decoration: none;
-		color: #f00;
-	}
-	.me{
-		width: 20%;
-		padding-left:3em;
-		float: left;
-	}
-	.me img{width:1.5em;}
-</style>
-</head>
-
-<body class="container-fluid">
-<header>
-	<p><h2>媛界码萌倩汉子</h2></p>
-	<p><em>——成长之路</em></p>
-</header>
-<nav class="navbar navbar-light bg-faded">
-	<div>
-	    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-	      	<li class="nav-item">
-	        	<a class="nav-link" href="#">技术</a>
-	      	</li>
-	      	<li class="nav-item active">
-	        	<a class="nav-link" href="#">生活</a>
-	      	</li>
-	      	<li class="nav-item">
-	        	<a class="nav-link" href="#">留言</a>
-	      	</li>
-	    </ul>
-	    <div style="float:right;">
-		    <form class="form-inline my-2 my-lg-0">
-			      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		    </form>
-	    </div>
-	</div>
-</nav>
+{include file="index/header" title="生活" cssName="home" /}
 <main>
 	<div id="blog">
 		<div class="item">
@@ -117,7 +44,6 @@
 
 	</div>
 </main>
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"/>
+{include file="index/footer"/}
 </body>
 </html>

@@ -1,0 +1,12 @@
+
+<div id="blog">
+	{volist name="list" id="bl"}
+	<div class="item">
+		<strong><a href="detail?id={$bl.id}">{$bl.title}</a></strong>
+		<p>{$bl['addtime']|date="Y-m-d H:i:s",###}<small><strong> 标签：</strong>{$bl.label}</p>
+		<p style="text-align:center"><a href="detail?id={$bl.id}">-阅读全文-</a></p>
+
+	</div>
+	{/volist}
+	<div class="pages">{$list->render()}</div>
+</div>

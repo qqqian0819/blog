@@ -6,6 +6,7 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <link rel="shortcut icon" href="/blog/public/favicon.png">
 <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/blog/public/static/editor/third-party/SyntaxHighlighter/shCoreDefault.css">
 <style>
    *{margin:0;padding:0;}
 	header{
@@ -91,7 +92,7 @@
 		{volist name="list" id="vo"}	
 			{$vo.border}
 			<div style="background:{$vo.bg};margin-left:{$vo.lefts}em">
-				<strong>{$vo.name}</strong>
+				<strong>{$vo.name??'匿名'}</strong>
 				<p class="time">{$vo['addtime']|date="Y-m-d H:i:s",###}</p>
 				<div class="text">
 					{$vo.message}
@@ -110,8 +111,9 @@
 
 
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/blog/public/static/editor/third-party/SyntaxHighlighter/shCore.js"></script>
 <script>
+	SyntaxHighlighter.highlight();
 	// 评论回复框弹出与取消
 	$('.comment').on('click',function(){
 

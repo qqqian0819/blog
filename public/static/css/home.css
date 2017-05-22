@@ -1,0 +1,52 @@
+<style>
+	main{
+		margin-top: 2em;
+		font-size: 1.3em;
+	}
+	/*分类列表标题*/
+	.sort strong{
+		font-size: 1.5em;
+	}
+	/*整个分类*/
+	.sort{
+		width: 20%;
+		padding-left:3em;
+		float: left;
+	}
+	.sort ul>li{
+		list-style-type: none;
+		font-size: 1.2em;
+	}
+	.sort ul{
+		margin-left:-2em;
+	}
+	/*分页居中*/
+	.pages{
+		display: flex;
+		justify-content: center;
+	}
+	/*整个blog*/
+	#blog{width: 70%;float: left;}
+	/*具体blog*/
+	.item{
+		background: #eee;
+		padding:0.5em;
+		margin-bottom: 1em;
+	}
+	/*博客标题*/
+	.item>strong{font-size: 1.3em}
+	/*正文内容*/
+	.text{
+		text-indent: 2em;
+		height: 6.5em;
+		overflow: hidden;
+	}
+	.readAll{text-align:center;font-size: 1.3em;}
+
+	@media (max-width:768px) {
+		#blog{width: 100%}
+		.sort{display: none;}
+	}
+
+
+</style>

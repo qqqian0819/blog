@@ -1,0 +1,23 @@
+
+<style>
+	/*具体博客*/
+	.item{
+		background: #fbfbfb;
+		padding: 0.5em;
+
+	}
+	.text{text-indent: 2em;}
+	.item>strong{font-size: 1.4em}
+	.btn{border-color:#080;color:#080;}
+	.btn:hover{color:#fff;background-color:#95caca}
+	
+	/*评论列表*/
+	.list{padding:0.2em;}
+	.list strong{font-size: 1.2em;}
+	.comment{text-align: right;color:#f00;cursor: pointer;}
+	.list form{margin-bottom: 0.8em;}
+	@media (max-width:768px) {
+		
+	} 
+
+</style>

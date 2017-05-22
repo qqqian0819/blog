@@ -1,136 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>首頁</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="/blog/public/favicon.png">
-<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<style>
-   *{margin:0;padding:0;}
-	header{
-		text-align: center;		
-	}
-	ul li{
-		list-style-type: none;
-	}
-	main{
-		min-height: 1000em;
-		margin-top: 2em;
-	}
-	#blog{width: 70%;float: left;}
-	
-	/*分页居中*/
-	.pages{
-		display: flex;
-		justify-content: center;
-	}
-	.item{
-		background: #eee;
-		padding:0.5em;
-		margin-bottom: 1em;
-	}
-	.text{
-		text-indent: 2em;
-		height: 4.5em;
-		overflow: hidden;
-	}
-	a:hover{
-		text-decoration: none;
-		color: #f00;
-	}
-	.sort{
-		width: 20%;
-		padding-left:3em;
-		float: left;
-	}
-	@media (max-width:768px) {
-		#blog{width: 100%}
-		.sort{display: none;}
-
-
-	}
-</style>
-</head>
-
-<body class="container">
-<header>
-	<p><h2>媛界码萌</h2></p>
-</header>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-
-            </button>
-            <a class="navbar-brand" href="#">个人博客</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="home">技术</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">生活</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">留言</a>
-                </li>        
-            </ul>
-            <form class="navbar-form navbar-right" method="post" action="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Search">
-                </div>
-                 <button type="submit" class="btn btn-default">Search</button>
-            </form>
-        </div>
-    </div>
-</nav> 
-
-
-
-<main>
+{include file="index/header" title="技术" cssName="home" /}
+<main class="container">
+	<!-- 博客 -->
 	<div id="blog">
-		{volist name="list" id="bl"}
+		{volist name="list" id="bl" empty="$empty"}
 		<div class="item">
-			<strong><a href="detail?id={$bl.id}">{$bl.title}</a></strong>
-			<p>{$bl['addtime']|date="Y-m-d H:i:s",###}<small><strong> 标签：</strong><mark>{$bl.sort}</mark>  <mark>js</mark>  <mark>数据库</mark></small></p>
-			<div class="text">
-				{$bl.content}
-			</div>
-			<p style="text-align:center"><a href="detail?id={$bl.id}">-阅读全文-</a></p>
 
+			<strong><a href="detail?id={$bl.id}">{$bl.title}</a></strong>
+			<p>{$bl['addtime']|date="Y-m-d H:i:s",###}&nbsp;&nbsp;<strong>分类：</strong>{$bl.sort}</p>
+			<div class="text">{$bl.content}</div>
+			<p class="readAll"><a href="detail?id={$bl.id}">-阅读全文-</a></p>
 		</div>
 		{/volist}
+
 		<div class="pages">{$list->render()}</div>
 	</div>
+	<!-- 分类 -->
 	<div class="sort">
 		<div>
-			<strong>标签列表</strong>
+			<strong>分类列表</strong>
 			<ul>
-				<li><a href="">javascript(3)</a></li>
-				<li><a href="">php(3)</a></li>
-				<li><a href="">mysql(3)</a></li>
-				<li><a href="">redis(3)</a></li>
-				<li><a href="">websocket(3)</a></li>
+				{volist name="sorts" id="so"}
+				<li><a href="sort?sort={$so.sort}">{$so.sort}({$so.count})</a></li>
+				{/volist}
 			</ul>
 		</div>
 		<hr>
 		<div>
 			<strong>文章存档</strong>
 			<ul>
-				<li><a href="">2017-01(3)</a></li>
-				<li><a href="">2017-02(3)</a></li>
-				<li><a href="">2017-03(3)</a></li>
+				{volist name="files" id="fi"}
+				<li><a href="dateSort?date={$fi.years}{$fi.months}">{$fi.years}年{$fi.months}月({$fi.num})</a></li>
+				{/volist}
 			</ul>
 		</div>
 	</div>
 </main>
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+{include file="index/footer"/}
 </body>
 </html>

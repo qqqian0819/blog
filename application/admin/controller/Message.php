@@ -2,14 +2,14 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Request;
-use think\Model\Messgae;
+use app\common\model\Message;
 
 class Message extends Controller
 {
 	// 首页
 	public function message()
 	{
-		$lists=\app\admin\model\Message::getAll();
+		$lists=Message::getAll();
 		// 确定回复样式
 		foreach ($lists as $v) {
 			$v['bg']=$v['lev']%2?'#eee':'#fff';
@@ -30,7 +30,7 @@ class Message extends Controller
 			$data=input('post.');
 			// var_dump($data);
 
-			$res=\app\admin\model\Message::addMessage($data);
+			$res=Message::addMessage($data);
 			return $mess= $res?'留言成功':'留言失败';
 		}
 	}
@@ -39,22 +39,21 @@ class Message extends Controller
 	public function del()
 	{
 		$id=input('post.id');
-		$lists=\app\admin\model\Message::delMess($id);
+		$lists=Message::delMess($id);
 		return '删除成功';
 	}
 
 	// 测试
 	public function test(){
-		/*$list=\app\admin\model\Message::getAll();
-		// $lists=\app\admin\model\Message::getTree($list,0);
+		/*$list=\app\common\model\Message::getAll();
+		// $lists=\app\common\model\Message::getTree($list,0);
 		// 确定回复样式
 		foreach ($lists as $v) {
 			$v['lev']=$v['lev']%2?'repaly2':'replay1';
 		}
 		print_r($lists);*/
-		$lists=\app\admin\model\Message::delMess(4);
-		var_dump($lists);
-
+		// $lists=Message::delMess(4);
+		// var_dump($lists);
 
 
 	}

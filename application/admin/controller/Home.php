@@ -2,16 +2,18 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Request;
+use app\common\model\Blog;
+use app\common\model\Message;
 class Home extends Controller
 {
 
 	// 首页 所有博客
 	public function home()
 	{
-
-		$blogs=\app\admin\model\Blog::getAll();
-		// 熏染模版
+		
+		$blogs=Blog::getAll();
 		$this->assign('list',$blogs);
+        // 渲染模版
 		return $this->fetch();
 	}
 
@@ -19,8 +21,8 @@ class Home extends Controller
 	public function detail($id)
 	{
 		// var_dump($id);
-		$blog=\app\admin\model\Blog::getOne($id);
-		$lists=\app\admin\model\Message::blogMess($id);
+		$blog=Blog::getOne($id);
+		$lists=Message::blogMess($id);
 		// 确定回复样式
 		foreach ($lists as $v) {
 			$v['bg']=$v['lev']%2?'#eee':'#fff';
@@ -41,7 +43,7 @@ class Home extends Controller
 	// 修改博客显示原有内容
 	public function edit($id)
 	{
-		$blog=\app\admin\model\Blog::getOne($id);
+		$blog=Blog::getOne($id);
 		// 熏染模版
 		$this->assign('title',$blog['title']);
 		$this->assign('content',$blog['content']);
@@ -55,7 +57,7 @@ class Home extends Controller
 	public function editBlog()
 	{
 		$data=input('post.');
-		return $res=\app\admin\model\Blog::editBlog($data);
+		return $res=Blog::editBlog($data);
 		// $user= new Blog;// $res=$user->save($data,['id'=>$data['id']]);//必须先 use think\model\Blog
 		
 	}
@@ -64,7 +66,7 @@ class Home extends Controller
 	public function search()
 	{
 		$key=input('post.keyword');
-		$blogs=\app\admin\model\Blog::searchKey($key);
+		$blogs=Blog::searchKey($key);
 		$this->assign('list',$blogs);
 		return $this->fetch('home');
 		
@@ -77,7 +79,7 @@ class Home extends Controller
 			$data=input('post.');
 			// var_dump($data);
 
-			$res=\app\admin\model\Message::addMessage($data);
+			$res=Message::addMessage($data);
 			return $mess= $res?'评论成功':'评论失败';
 		}
 	}
@@ -87,8 +89,10 @@ class Home extends Controller
 	{
 		if(Request::instance()->isAjax()){
 			$id=input('post.id');
-			$lists=\app\admin\model\Message::delMess($id);
+			$lists=Message::delMess($id);
 			return '删除成功';
 		}
 	}
+
+
 }
