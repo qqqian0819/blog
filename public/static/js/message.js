@@ -20,7 +20,7 @@
 	// 提交留言
 	$('#mess').on('click',function(){
 
-		let data=$('form').serialize();
+		let data=$('form[name=form0]').serialize();
 		console.log(data);
 		getAjax(data,'addComment');
 

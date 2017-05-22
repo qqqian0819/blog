@@ -5,49 +5,21 @@
 		text-align: center;	
 
 	}
-	header a{color:#000;	}
-	ul li{
-		list-style-type: none;
-	}
-	main{
-		margin-top: 2em;
-		font-size: 1.3em;
-	}
-	#blog{width: 70%;float: left;}
+	header a{color:#000;}
 	
-	/*分页居中*/
-	.pages{
-		display: flex;
-		justify-content: center;
-	}
-	.item{
-		background: #eee;
-		padding:0.5em;
-		margin-bottom: 1em;
-	}
-	.text{
-		text-indent: 2em;
-		height: 6.5em;
-		overflow: hidden;
-	}
 	a:hover{
 		text-decoration: none;
 		color: #f00;
 	}
-	.sort{
-		width: 20%;
-		padding-left:3em;
-		float: left;
-	}
+	
 	footer{
-		clear:both;
 		font-family:monospace;
 		font-size: 2em;
-		text-align: center;
 
 	}
+	
 	@media (max-width:768px) {
-		#blog{width: 100%}
-		.sort{display: none;}
+		footer{font-size: 1.2em;}
 	}
+
 </style>

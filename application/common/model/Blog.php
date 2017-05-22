@@ -17,15 +17,24 @@ class Blog extends Model
 	}
 
 	/**
-	 * 查看某一篇博客
+	 * 查看某一篇博客以及获取上下篇未删除博客的id标题[id]
 	 * @param string $id 博客id
 	 * @return array / false
 	*/
 	public static function getOne($id)
 	{	
-		// 默认primary kye
+		// 获取当前的博客的信息
 		$list=Blog::get($id);
-		$list['addtime']=date('Y-m-d H:i:s',$list['addtime']);
+		// 获取上下一篇博客
+		$list['pre']=Blog::field('id,title')
+					->where('isdelete=0 and id<'.$id)
+					->order('id desc')
+					->limit(1)
+					->select();
+		$list['next']=Blog::field('id,title')
+					->where('isdelete=0 and id>'.$id)
+					->limit(1)
+					->select();	
 		return $list;
 	}
 
@@ -50,9 +59,9 @@ class Blog extends Model
 	*/
 	public static function searchKey($key)
 	{
-		// bug:绑定到同一个word  改进方法？？？
-		$blogs=Blog::where('content like :word or title like :words or sort like :wordss ')
-					->bind(['word'=>"%$key%",'words'=>"%$key%",'wordss'=>"%$key%"])
+
+		$blogs=Blog::where('content or title or sort like :word')
+					->bind(['word'=>"%$key%"])
 					->order('addtime desc')
 					->paginate(10);
 		return $blogs;
@@ -105,25 +114,37 @@ class Blog extends Model
 		// $files=Blog::query($sql);
 		$files=Blog::where('FROM_UNIXTIME(addtime,"%Y%m")='.$date)
 					->where('isdelete=0')
-					->order('addtime desc')->paginate(10);
+					->order('addtime desc')
+					->paginate(10);
 		return $files; 
 	}
 
 	/**
-     * 生活或者技术分类
+     * 获取总的分类即博客数目
      * @param string $name[skill/life]
      * @return array [0]=>('sort'=>javascript 'count'=>3)
 	*/
-	public static function sort($name)
+	public static function sort()
 	{
-		$list=Blog::field('tp_sort.sort,COUNT(*),s.name')
-					->alias('b')
-					->join('tp_sort s','b.sort=s.id')
+		$list=Blog::field('sort,COUNT(*) as count')
 					->where('isdelete',0)
-					// ->having('s.name='.$name)
-					->group('s.sort')
+					->group('sort')
 					->select();
+		return $list;
+	}
 
+	/**
+	 * 分类博客
+	 * @param string $sort [分类名称]
+	 * @return array [相关博客列表]
+	 */
+	public static function getSort($sort)
+	{
+		$list=Blog::where('isdelete',0)
+					->where('sort like :word')
+					->bind(['word'=>"$sort"])
+					->order('addtime desc')
+					->paginate(10);
 		return $list;
 	}
 

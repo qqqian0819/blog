@@ -1,0 +1,31 @@
+[ 2017-05-22T23:49:14+08:00 ] ::1 ::1 GET /blog/public/index/index/detail?name=2131%E7%9A%84%E5%84%BF%E5%AD%90&email=123456789%40qq.com&message=%E5%95%A5%E5%9C%B0%E6%96%B9%E5%A4%A7%E4%B8%89%E5%8F%91%E5%A4%A7%E6%B0%B4
+[ log ] localhost:81/blog/public/index/index/detail?name=2131%E7%9A%84%E5%84%BF%E5%AD%90&email=123456789%40qq.com&message=%E5%95%A5%E5%9C%B0%E6%96%B9%E5%A4%A7%E4%B8%89%E5%8F%91%E5%A4%A7%E6%B0%B4 [运行时间：0.032092s][吞吐率：31.16req/s] [内存消耗：1,678.82kb] [文件加载：45]
+[ info ] [ LANG ] D:\www\blog\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'index',
+    1 => 'index',
+    2 => 'detail',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost:81',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'referer' => 'http://localhost:81/blog/public/index/index/detail?id=20',
+  'accept-encoding' => 'gzip, deflate, sdch, br',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+)
+[ info ] [ PARAM ] array (
+  'name' => '2131的儿子',
+  'email' => '123456789@qq.com',
+  'message' => '啥地方大三发大水',
+)
+[ info ] [ LOG ] INIT File
+[ error ] [0]方法参数错误:id[D:\www\blog\thinkphp\library\think\App.php:294]
+
+---------------------------------------------------------------

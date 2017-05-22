@@ -1,16 +1,16 @@
-{include file="index/header" title="xianga"  active="home" /}
+{include file="index/header" title="xianga"  cssName="detail"/}
 <main class="container">
 	<div class="item">
-		<strong>{$title}</strong>
-		<p>{$addtime}<small><strong> 标签：</strong><mark>{$sort}</mark>  <mark>js</mark>  <mark>数据库</mark></small></p>
+		<strong>{$blog['title']}</strong>
+		<p>{$blog['addtime']|date="Y-m-d H:i:m",###}<strong> 分类：</strong>{$blog['sort']}</p>
 		<div class="text">
-			{$content}ddadsfdasfadsfd阿萨打发斯蒂芬大三发顺丰父大大发法法发到付
+			{$blog['content']}
 		</div>
 	</div>
 	<hr>
 	<div class="other">
-		<small>上一篇：</small><em>萨达所大龟甲师</em><br>
-		<small>下一篇：</small><em>萨达所大龟甲师</em><br>
+		<span>上一篇：<em><a href="detail?id={$blog['pre'][0]['id']}">{$blog['pre'][0]['title']}</a></em></span>
+		<span class="pull-right">下一篇：<em><a href="detail?id={$blog['next'][0]['id']??$blog['id']}">{$blog['next'][0]['title']??'暂无相关博客'}</a></em></span>
 		<hr>
 		<h3>添加评论</h3>
 		{include file="index/messlayout" listName="评论列表"/}
@@ -18,7 +18,7 @@
 </main>
 {include file="index/footer"}
 <script type="text/javascript" src="/blog/public/static/editor/third-party/SyntaxHighlighter/shCore.js"></script>
-<script>SyntaxHighlighter.highlight();</script>
 <script src="{$Think.config.web_root}js/message.js"></script>
+<script>SyntaxHighlighter.highlight();</script>
 </body>
 </html>

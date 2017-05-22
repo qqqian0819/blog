@@ -1,11 +1,27 @@
-{include file="index/header" title="技术" active="home" /}
-<main>
-	{include file="index/blog"/}
+{include file="index/header" title="技术" cssName="home" /}
+<main class="container">
+	<!-- 博客 -->
+	<div id="blog">
+		{volist name="list" id="bl" empty="$empty"}
+		<div class="item">
+
+			<strong><a href="detail?id={$bl.id}">{$bl.title}</a></strong>
+			<p>{$bl['addtime']|date="Y-m-d H:i:s",###}&nbsp;&nbsp;<strong>分类：</strong>{$bl.sort}</p>
+			<div class="text">{$bl.content}</div>
+			<p class="readAll"><a href="detail?id={$bl.id}">-阅读全文-</a></p>
+		</div>
+		{/volist}
+
+		<div class="pages">{$list->render()}</div>
+	</div>
+	<!-- 分类 -->
 	<div class="sort">
 		<div>
 			<strong>分类列表</strong>
 			<ul>
-				<li><a href="sort?sort=">javascript(3)</a></li>
+				{volist name="sorts" id="so"}
+				<li><a href="sort?sort={$so.sort}">{$so.sort}({$so.count})</a></li>
+				{/volist}
 			</ul>
 		</div>
 		<hr>
@@ -13,12 +29,13 @@
 			<strong>文章存档</strong>
 			<ul>
 				{volist name="files" id="fi"}
-				<li><a href="date?date={$fi.years}{$fi.months}">{$fi.years}年{$fi.months}月({$fi.num})</a></li>
+				<li><a href="dateSort?date={$fi.years}{$fi.months}">{$fi.years}年{$fi.months}月({$fi.num})</a></li>
 				{/volist}
 			</ul>
 		</div>
 	</div>
 </main>
+
 {include file="index/footer"/}
 </body>
 </html>

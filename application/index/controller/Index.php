@@ -16,6 +16,9 @@ class Index extends Controller
         // 文章归档
         $files=Blog::timeFile();
         $this->assign('files',$files);
+        // 文章分类
+        $sorts=Blog::sort();
+        $this->assign('sorts',$sorts);
 
         // 渲染模版
         return $this->fetch();
@@ -25,9 +28,9 @@ class Index extends Controller
     public function detail($id)
     {
         // var_dump($id);
-        $blog=Blog::getOne($id);
-        $lists=Message::blogMess($id);
-        // 确定回复样式
+        $blog=Blog::getOne($id);//博客列
+        $lists=Message::blogMess($id);//留言列
+        // 确定留言回复样式
         foreach ($lists as $v) {
             $v['bg']=$v['lev']%2?'#eee':'#fff';
             $v['lefts']=$v['lev']*2;
@@ -35,13 +38,10 @@ class Index extends Controller
         }
         // 熏染模版
         $this->assign('list',$lists);
-        // 熏染模版
-        $this->assign('title',$blog['title']);
-        $this->assign('content',$blog['content']);
-        $this->assign('addtime',$blog['addtime']);
-        $this->assign('sort',$blog['sort']);
-        $this->assign('id',$id);
-        return $this->fetch();
+        $this->assign('blog',$blog);
+        // 无相关博客 ???home.css 无效
+        $this->assign('empty','<p class="empty" style="text-align:center;font-size:1.3em;margin-top:1em;">暂无留言</p>');
+        return $this->fetch('detail');
     }
     // 关键字搜索 return array/false
     public function search()
@@ -49,10 +49,15 @@ class Index extends Controller
         $key=input('post.keyword');
         $blogs=Blog::searchKey($key);
         $this->assign('list',$blogs);
+        // 无相关博客 ???home.css 无效
+        $this->assign('empty','<p class="empty" style="text-align:center;font-size:2em;margin-top:2em;">暂时没有相关博客</p>');
 
         // 文章归档
         $files=Blog::timeFile();
         $this->assign('files',$files);
+        // 文章分类
+        $sorts=Blog::sort();
+        $this->assign('sorts',$sorts);
 
         return $this->fetch('home');
         
@@ -63,7 +68,6 @@ class Index extends Controller
     {
         if(Request::instance()->isAjax()){
             $data=input('post.');
-            // var_dump($data);
 
             $res=Message::addMessage($data);
             return $mess= $res?'评论成功':'评论失败';
@@ -99,13 +103,9 @@ class Index extends Controller
         }
     }
 
-    // 生活列表
-    public function life(){
-        return $this->fetch();
-    }
-
-    // 某年某与的文档
-    public function date($date){
+    // 某年某月的文档
+    public function date($date)
+    {
         $blogs=Blog::findDate($date);
         $this->assign('list',$blogs);
 
@@ -115,10 +115,44 @@ class Index extends Controller
 
         return $this->fetch('home');
     }
+    // 分类博客
+    public function sort()
+    {
+        $sort=trim(input('get.sort'));
+        $blogs=Blog::getSort($sort);
+        $this->assign('list',$blogs);
 
+        // 文章归档
+        $files=Blog::timeFile();
+        $this->assign('files',$files);
+        // 文章分类
+        $sorts=Blog::sort();
+        $this->assign('sorts',$sorts);
 
-    public function test(){
-        $list=Blog::sort('skill');
-        var_dump($list);
+        return $this->fetch('home');
+    }
+    // 归档博客
+    public function dateSort()
+    {
+        $times=input('get.date');
+        $blogs=Blog::findDate($times);
+        $this->assign('list',$blogs);
+
+        // 文章归档
+        $files=Blog::timeFile();
+        $this->assign('files',$files);
+        // 文章分类
+        $sorts=Blog::sort();
+        $this->assign('sorts',$sorts);
+
+        return $this->fetch('home');
+    }
+
+    public function test($id=9){
+        $blog=Blog::getOne($id);//博客列
+        $arr=$blog['pre'];
+        var_dump($blog['pre'][0]['id']);
+        // var_dump($blog['pre'].'id');
+        // var_dump($blog['pre']);
     }
 }

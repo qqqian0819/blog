@@ -1,5 +1,6 @@
 <!-- 评论留言样式 -->
-<form>
+<form name="form0">
+	<input type="hidden" name="blog" value="{$blog['id']}">
 	<div class="form-group">
 		<label for="name">称呼(必填)：</label>
 		<input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/>
@@ -13,13 +14,13 @@
 		<textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea>
 	</div>
 	<br>
-	<button id="mess" class="btn btn-outline-info btn-block" >留言</button>
+	<button id="mess" class="btn btn-default btn-lg btn-block" >留 言</button>
 	
 </form>
 <hr>
 <h3>[listName](<span style="color:#f00">{:count($list)}</span>)</h3>
 <div class="list">
-{volist name="list" id="vo"}	
+{volist name="list" id="vo" empty="$empty"}	
 	{$vo.border}
 	<div style="background:{$vo.bg};margin-left:{$vo.lefts}em">
 		<strong>{$vo.name??'匿名'}</strong>
@@ -34,3 +35,4 @@
 	</div>
 {/volist}
 </div>
+
