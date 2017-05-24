@@ -68,6 +68,7 @@ class Index extends Controller
     {
         if(Request::instance()->isAjax()){
             $data=input('post.');
+            // return var_dump($data);
 
             $res=Message::addMessage($data);
             return $mess= $res?'评论成功':'评论失败';
@@ -152,7 +153,5 @@ class Index extends Controller
         $blog=Blog::getOne($id);//博客列
         $arr=$blog['pre'];
         var_dump($blog['pre'][0]['id']);
-        // var_dump($blog['pre'].'id');
-        // var_dump($blog['pre']);
     }
 }

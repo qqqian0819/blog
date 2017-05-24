@@ -60,8 +60,7 @@ class Blog extends Model
 	public static function searchKey($key)
 	{
 
-		$blogs=Blog::where('content or title or sort like :word')
-					->bind(['word'=>"%$key%"])
+		$blogs=Blog::where('content|title|sort','like','%'.$key.'%')
 					->order('addtime desc')
 					->paginate(10);
 		return $blogs;
