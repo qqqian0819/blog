@@ -2,10 +2,13 @@
 namespace app\admin\controller;
 use think\Controller;
 use think\Request;
+use app\common\model\Blog;
 class Publish extends Controller
 {
 	public function addblog()
 	{
+		$sorts=Blog::sort();
+		$this->assign('sorts',$sorts);
 		return $this->fetch();
 	}
 
@@ -15,8 +18,14 @@ class Publish extends Controller
 		// 收集数据
 		$data=input('post.');
 
-		// 如果不引入该model 则需要此处\app\
-		$res=\app\common\model\Blog::addBlog($data);
-		return $res?'发表成功':'发表失败';
+		$res=Blog::addBlog($data);
+		var_dump($res);
+		if($res){
+			$this->redirect('Home/detail', ['id' =>$res['id']]);
+            // $this->success('新增成功', 'detail?id='.input('post.id'));
+        } else {
+            //错误默认跳转页面是返回前一页 history.back(-1);
+            $this->error('修改失败');
+        }
 	}
 }
