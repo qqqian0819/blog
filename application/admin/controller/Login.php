@@ -40,6 +40,7 @@ class Login extends Controller
             }
             $ret["message"]="登录成功";
             $ret["status"]=1; 
+            session("ext_user",'qqqian');
             return json($ret);
         }
         
@@ -47,6 +48,13 @@ class Login extends Controller
 
     public function repath()
     {
-        $this->redirect('publish/addblog');
+        $this->redirect('home/home');
+    }
+
+
+    // 退出登录
+    public function logout(){
+        session("ext_user",NULL);
+        $this->redirect('login/login');
     }
 }
