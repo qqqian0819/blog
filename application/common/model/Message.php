@@ -34,7 +34,7 @@ class Message extends Model
 	*/
 	public static function getAll()
 	{
-		$arr=Message::where('isdelete=0 and blog=0')->select();
+		$arr=Message::where('isdelete=0 and blog=0')->order('addtime desc')->select();
 		$list=Message::getTree($arr,0);
 		return $list;
 	} 
