@@ -74,7 +74,9 @@
 			<label for="title">分类</label>
 			<select class="form-control" name="sort">
 				{volist name="sorts" id="so"}	
-				<option value="{$so.sort}">{$so.sort}({$so.count})</option>
+				<option value="{$so.sort}" {$so.sort==$blog['sort']?'selected':''}>
+					{$so.sort}({$so.count})
+				</option>
 				{/volist}
 				
 			</select>
@@ -94,7 +96,6 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 	// 编辑器
-	// var ueditore = UE.getEditor('editor');
 	var editor= UE.getEditor('article');
 	editor = new UE.ui.Editor({initialFrameHeight:400});
 
