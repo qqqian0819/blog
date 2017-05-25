@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>生活</title>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="/blog/public/favicon.png">
-<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/blog/public/static/editor/third-party/SyntaxHighlighter/shCoreDefault.css">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{$Think.config.web_root}css/message.css">
+<link rel="stylesheet" href="{$Think.config.web_root}editor/third-party/SyntaxHighlighter/shCoreDefault.css">
 <style>
    *{margin:0;padding:0;}
 	header{
@@ -50,40 +51,77 @@
 
 <body class="container-fluid">
 <header>
-	<p><h2>媛界码萌倩汉子</h2></p>
-	<p><em>——成长之路</em></p>
+	<p><h2>媛界码萌</h2></p>
 </header>
+<nav class="navbar navbar-default container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+
+        </button>
+        <a class="navbar-brand" href="home">个人博客</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="home">博客</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Mess/mess">留言板</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../Publish/addblog">发表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="home">退出</a>
+            </li>        
+        </ul>
+        <form class="navbar-form navbar-right" method="post" action="search" name="search">
+            <div class="form-group">
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Search">
+            </div>
+             <button type="submit" class="btn btn-default">Search</button>
+        </form>
+    </div>
+</nav> 
 <main class="container">
 	<div class="item">
-		<strong>{$title}</strong>
-		<p>{$addtime}<small><strong> 标签：</strong><mark>{$sort}</mark>  <mark>js</mark>  <mark>数据库</mark></small></p>
+		<strong>{$blog['title']}</strong>
+		<p>{$blog['addtime']|date="Y-m-d H:i:m",###}<strong> 分类：</strong>{$blog['sort']}</p>
 		<div class="text">
-			{$content}ddadsfdasfadsfd阿萨打发斯蒂芬大三发顺丰父大大发法法发到付
+			{$blog['content']}
 		</div>
-		<p style="text-align:center"><a href="edit?id={$id}">-修改博文-</a></p>
+		<p style="text-align:center">
+			<span><a href="edit?id={$blog['id']}">-修改博文-</a></span>&nbsp;|&nbsp;
+			<span id="delBlog"><a href="">-{$blog['isdelete']?'恢复博客':'删除博客'}-</a></span>
+		</p>
 	</div>
+		
 	<hr>
 	<div class="other">
-		<small>上一篇：</small><em>萨达所大龟甲师</em><br>
-		<small>下一篇：</small><em>萨达所大龟甲师</em><br>
+		<span>上一篇：<em><a href="detail?id={$blog['pre'][0]['id']}">{$blog['pre'][0]['title']}</a></em></span>
+		<span class="pull-right">下一篇：<em><a href="detail?id={$blog['next'][0]['id']??$blog['id']}">{$blog['next'][0]['title']??'暂无相关博客'}</a></em></span>
 		<hr>
 		<h3>添加评论</h3>
-		<form>
-			<input type="hidden" value="{$id}" name="blog">
+		<form name="forms">
+			<input type="hidden" name="blog" value="{$blog['id']}">
 			<div class="form-group">
 				<label for="name">称呼(必填)：</label>
 				<input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/>
 			</div>
 			<div class="form-group">
 				<label for="email">邮箱(不会被公开)：</label>
-				<input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/>
+				<input type="email" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/>
 			</div>
 			<div>
 				<label for="message">内容(必填)：</label>
 				<textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea>
 			</div>
 		<br>
-		<button id="mess" class="btn btn-outline-info btn-block">留言</button>
+		<button id="mess" class="btn btn-default btn-lg btn-block">留言</button>
 		
 		</form>
 		<hr>
@@ -100,7 +138,8 @@
 				<p class="delete" id="{$vo.id}">删除</p>
 				<p class="comment">回复</p>
 				<form name="form{$vo.id}">
-					<input type="hidden" value="{$vo.id}" />
+					<input type="hidden" value="{$vo.id}" name="parent" />
+					<input type="hidden" value="{$blog['id']??0}" name="blog" />
 				</form>
 			</div>
 		{/volist}
@@ -118,36 +157,33 @@
 	$('.comment').on('click',function(){
 
 		if($(this).next().find('label').text()==''){
-			var form='<div class="form-group"><label for="name">称呼(必填)：</label><input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/></div><div class="form-group"><label for="email">邮箱(不会被公开)：</label><input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/></div><div><label for="message">内容(必填)：</label><textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea></div><br><button class="btn btn-outline-info btn-block" type="submit">回复</button>';
+			var form='<div class="form-group"><label for="name">称呼(必填)：</label><input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/></div><div class="form-group"><label for="email">邮箱(不会被公开)：</label><input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/></div><div><label for="message">内容(必填)：</label><textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea></div><br><button class="btn btn-default btn-lg btn-block" type="submit">回复</button>';
 		
 			$(this).next().append(form); // 添加form到子节点尾部
 			$(this).text('取消回复');
 		}else{
 			// .first() 无效???
 			$(this).next().find('input[type=hidden]').nextAll().remove();
-			$(this).text('回复');
-
-			
+			$(this).text('回复');			
 		}
-
 	});
 
 	// 提交留言
 	$('#mess').on('click',function(){
 
-		let data=$('form').serialize();
+		let data=$('form[name=forms]').serialize();
 		getAjax(data,'addComment');
 
 		return false;
 	});
 
 	// 评论回复留言
-	$('form').submit(function(e){
+	$('form[name!=search]').submit(function(e){
 
 		let num=$(this).find('input[type=hidden]').val();
 		
 		// 拼装数据
-		let data=$('form[name=form'+num+']').serialize()+'&parent='+num+'&blog='+{$id};
+		let data=$('form[name=form'+num+']').serialize();
 		
 		getAjax(data,'addComment');
 		return false;
@@ -164,6 +200,22 @@
 
 	});
 
+	// 删除博客
+	$('#delBlog').on('click',function(){
+		let text=$.trim($('#delBlog').text());
+		let flag=confirm('想好了吗？');
+		if(flag){
+			$id={$blog['id']};
+
+			if(text=='-删除博客-'){
+				getAjax('id='+{$blog['id']},'delBlog');
+			}else{
+				getAjax('id='+{$blog['id']},'relBlog');
+			}
+		}
+		
+	})
+
 	// 调用jax
 	function getAjax($data,$url){
 		$.ajax({
@@ -172,7 +224,7 @@
 			data:$data
 		})
 		.done(function(msg){
-			console.log('成功'+msg);
+			alert(msg);
 			document.location.reload();//刷新当前页面
 		})
 		.fail(function(msg){
