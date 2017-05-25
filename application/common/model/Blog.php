@@ -39,7 +39,16 @@ class Blog extends Model
 	}
 
 	/**
-	 * 获取所有的博文。并修改添加时间的格式
+	 * 管理云获取所有博客
+	 */
+	public static function adminAll()
+	{
+		$lists=Blog::where([])->field('')->order('addtime desc')->paginate(10);
+		return $lists;
+	}
+
+	/**
+	 * 获取所有未删除的博文
 	 * @return array
 	 	array{
 			[0]=>array{}
@@ -79,15 +88,25 @@ class Blog extends Model
 
 
 	/**
-     * 软删除博客 : isdelete=>1
+     * 软删除博客 留言状态不改变 : isdelete=>1 
      * @param int id [博客id]
      * @return bool
 	*/
-	/*public static function deleBlog($id) 
+	public static function delBlog($id) 
 	{
 		$flag=Blog::where('id',$id)->update(['isdelete'=>1]);
 		return $flag;
-	}*/
+	}
+
+	/**
+	 * 恢复博客
+	 * @param int id [博客id]
+	 */
+	public static function reBlog($id)
+	{
+		$flag=Blog::where('id',$id)->update(['isdelete'=>0]);
+		return $flag;
+	}
 
 	/**
 	 * 所有文章归档

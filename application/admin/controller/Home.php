@@ -16,7 +16,7 @@ class Home extends Controller
             exit();
         }
 		// 博客
-        $blogs=Blog::getAll();
+        $blogs=Blog::adminAll();
         $this->assign('list',$blogs);
         // 文章归档
         $files=Blog::timeFile();
@@ -160,5 +160,22 @@ class Home extends Controller
 		}
 	}
 
+    // 删除博客
+    public function delBlog()
+    {
+        if(Request::instance()->isAjax()){
+            $id=input('post.id');
+            $res=Blog::delBlog($id);
+             return $res?'删除成功':'删除失败';
+        }
+    }
+
+    public function relBlog(){
+        if(Request::instance()->isAjax()){
+            $id=input('post.id');
+            $res=Blog::reBlog($id);
+            return $res?'恢复成功':'恢复失败';
+        }
+    }
 
 }

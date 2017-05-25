@@ -3,7 +3,7 @@
 $('.comment').on('click',function(){
 
 	if($(this).next().find('label').text()==''){
-		var form='<div class="form-group"><label for="name">称呼(必填)：</label><input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/></div><div class="form-group"><label for="email">邮箱(不会被公开)：</label><input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/></div><div><label for="message">内容(必填)：</label><textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea></div><br><button class="btn btn-outline-info btn-block" type="submit">回复</button>';
+		var form='<div class="form-group"><label for="name">称呼(必填)：</label><input type="text" placeholder="请输入用户名" id="name" name="name" class="form-control"/></div><div class="form-group"><label for="email">邮箱(不会被公开)：</label><input type="text" placeholder="如果不介意留下您的联系方式吧" id="email" name="email" class="form-control"/></div><div><label for="message">内容(必填)：</label><textarea name="message" id="message" class="form-control" rows="5" placeholder="输入你相对我说的话吧"></textarea></div><br><button class="btn btn-default btn-block " type="submit">回复</button>';
 	
 		$(this).next().append(form); // 添加form到子节点尾部
 		$(this).text('取消回复');
