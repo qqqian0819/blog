@@ -20,6 +20,7 @@ class Index extends Controller
         $sorts=Blog::sort();
         $this->assign('sorts',$sorts);
 
+        $this->assign('empty','<p class="empty" style="text-align:center;font-size:1.3em;margin-top:1em;">暂无博客</p>');
         // 渲染模版
         return $this->fetch();
     }
@@ -86,6 +87,8 @@ class Index extends Controller
             $v['border']=$v['lev']==0? " <hr> " :'';
         }
         // 熏染模版
+        // 
+        $this->assign('empty','<p class="empty" style="text-align:center;font-size:1.3em;margin-top:1em;">暂无留言</p>');
         $this->assign('list',$lists);
         return $this->fetch();
 
